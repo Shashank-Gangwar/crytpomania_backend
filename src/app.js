@@ -6,7 +6,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin:
+      "http://localhost:5173" ||
+      "https://cryptomania-backend.netlify.app/.netlify/functions/src",
     credentials: true,
   })
 );
