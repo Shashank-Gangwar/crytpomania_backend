@@ -6,10 +6,11 @@ const app = express();
 
 app.use(
   cors({
-    origin:
-      "http://localhost:5173" ||
+    origin: [
+      "http://localhost:5173",
       "https://66391cca98b79f0008df9f46--storied-bavarois-f9ea67.netlify.app/",
-    credentials: true,
+    ],
+    // credentials: true,
   })
 );
 
