@@ -32,6 +32,8 @@ router
   .route("/updateAvatar")
   .post(upload.single("avatar"), verifyJWT, updateUserAvatar);
 
+router.get("/hello", (req, res) => res.send("Hello World!"));
+
 router.route("/deleteAvatar").post(verifyJWT, deleteUserAvatar);
 router.route("/login").post(loginUser);
 router.route("/logout").post(verifyJWT, logoutUser);
