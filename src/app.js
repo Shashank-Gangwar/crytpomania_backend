@@ -5,11 +5,16 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 app.use(function (req, res, next) {
+  const allowedOrigins = [
+    "http://localhost:5173",
+    "https://storied-bavarois-f9ea67.netlify.app",
+  ];
+  const origin = req.headers.origin;
+
   // Website you wish to allow to connect
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://66391cca98b79f0008df9f46--storied-bavarois-f9ea67.netlify.app"
-  );
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
 
   // Request methods you wish to allow
   res.setHeader(
@@ -31,15 +36,15 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://66391cca98b79f0008df9f46--storied-bavarois-f9ea67.netlify.app",
-    ],
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       "https://66391cca98b79f0008df9f46--storied-bavarois-f9ea67.netlify.app",
+//     ],
+//     credentials: true,
+//   })
+// );
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
