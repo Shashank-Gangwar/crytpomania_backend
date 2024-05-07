@@ -84,7 +84,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    // secure: true,
+    secure: true,
+    sameSite: "none",
     expires: new Date(Date.now() + 24 * 3600000),
   };
 
@@ -136,7 +137,8 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const options = {
     httpOnly: true,
-    // secure: true,
+    secure: true,
+    sameSite: "none",
     expires: new Date(Date.now() + 24 * 3600000),
   };
 
@@ -194,7 +196,9 @@ const checkLoginUser = asyncHandler(async (req, res) => {
   );
   const options = {
     httpOnly: true,
-    // secure: true,
+    secure: true,
+    sameSite: "none",
+    expires: new Date(Date.now() + 24 * 3600000),
   };
 
   return res
@@ -242,6 +246,9 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     const options = {
       httpOnly: true,
       secure: true,
+      sameSite: "none",
+
+      expires: new Date(Date.now() + 24 * 3600000),
     };
 
     const { accessToken, newRefreshToken } =
@@ -266,10 +273,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     throw new ApiError(401, error?.message || "Invalid refresh token");
   }
 });
-
-const addToWishlist = asyncHandler(async (req, res) => {});
-
-const removeFromWishlist = asyncHandler(async (req, res) => {});
 
 const getCurrentUser = asyncHandler(async (req, res) => {
   return res
