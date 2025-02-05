@@ -4,39 +4,24 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-// app.use(function (req, res, next) {
-//   const allowedOrigins = [
-//     "http://localhost:5173",
-//     "https://storied-bavarois-f9ea67.netlify.app",
-//   ];
-//   const origin = req.headers.origin;
+const allowedOrigins = [
+  "http://localhost:5174", // Your local frontend
+  "https://storied-bavarois-f9ea67.netlify.app", // Your production frontend
+];
 
-//   // Website you wish to allow to connect
-//   if (allowedOrigins.includes(origin)) {
-//     res.setHeader("Access-Control-Allow-Origin", origin);
-//   }
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allow cookies and credentials
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS", // Allow specific HTTP methods
+};
 
-//   // Request methods you wish to allow
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-//   );
-
-//   // Request headers you wish to allow
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "X-Requested-With,content-type"
-//   );
-
-//   // Set to true if you need the website to include cookies in the requests sent
-//   // to the API (e.g. in case you use sessions)
-//   res.setHeader("Access-Control-Allow-Credentials", true);
-
-//   // Pass to next layer of middleware
-//   next();
-// });
-
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
