@@ -36,15 +36,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use(
-//   cors({
-//     origin: [
-//       "http://localhost:5173",
-//       "https://66391cca98b79f0008df9f46--storied-bavarois-f9ea67.netlify.app",
-//     ],
-//     credentials: true,
-//   })
-// );
+app.use(cors());
 
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
